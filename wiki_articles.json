@@ -1,16 +1,4 @@
-import { Controller, Get, Render, Query, Post } from '@nestjs/common';
-import { AppService } from './app.service.js';
-
-interface ArticleView {
-  title: string;
-  url: string;
-  views:number;
-}
-
-@Controller()
-export class AppController {
-
-  adatok: ArticleView[] = [
+[
   {
     "title": "Bulbasaur",
     "url": "https://en.wikipedia.org/wiki/Bulbasaur",
@@ -62,49 +50,3 @@ export class AppController {
     "views": 28937
   }
 ]
-
-  constructor(private readonly appService: AppService) {
-    
-  }
-
-  // @Get()
-  // @Render('index')
-  // getHello() {
-  //   return {
-  //     title: 'My First NestJS App'
-  //   }
-  // }
-
-
-  @Get()
-  @Render('index')
-  FooldalForm() {
-
-    const rendezettAdatok= [...this.adatok]
-
-    rendezettAdatok.sort((a,b)=>
-    a.title.localeCompare(b.title));
-
-    return {
-      ArticleView: rendezettAdatok
-    }
-  }
-
-@Get('filter')
-  @Render('filter')
-  FilterForm(@Query('minViews') minViews?: string) {
- 
-    let minimum = Number(minViews);
-    if (minViews === undefined || isNaN(minimum)) {
-      minimum = 0;
-    }
- 
-    const szurtAdatok = this.adatok.filter(article => article.views >= minimum)
-      .sort((a, b) => b.views - a.views);
- 
-    return {
-      ArticleView: szurtAdatok,
-      minViews: minimum
-    };
-  }
-}

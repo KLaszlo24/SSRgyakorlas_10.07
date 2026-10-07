@@ -1,15 +1,78 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="hu">
+ 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>
-        <%= title %>
-    </title>
-    <link rel="stylesheet" href="/style.css">
+    <title>Wikipédia szócikkek</title>
 </head>
+ 
 <body>
-    <h1><%= title %></h1>
-    Hello EJS!
+ 
+    <h1>Wikipédia szócikkek</h1>
+ 
+    <table>
+ 
+        <thead>
+            <tr>
+                <th>Szócikk címe</th>
+                <th>Látogatások száma</th>
+            </tr>
+        </thead>
+ 
+        <tbody>
+ 
+            <% for (const article of ArticleView) { %>
+ 
+                <% if (article.views > 1000) { %>
+ 
+                    <tr style="font-weight: bold;">
+ 
+                        <td>
+                            <a href="<%= article.url %>" target="_blank">
+                                <%= article.title %>
+                            </a>
+                        </td>
+ 
+                        <td>
+                            <%= article.views %>
+                        </td>
+ 
+                    </tr>
+ 
+                <% } else { %>
+ 
+                    <tr>
+ 
+                        <td>
+                            <a href="<%= article.url %>" target="_blank">
+                                <%= article.title %>
+                            </a>
+                        </td>
+ 
+                        <td>
+                            <%= article.views %>
+                        </td>
+ 
+                    </tr>
+ 
+                <% } %>
+ 
+            <% } %>
+ 
+        </tbody>
+ 
+    </table>
+ 
+ 
+    <br>
+ 
+    <a href="/filter">Szűrés</a>
+ 
+    <br>
+    <br>
+ 
+    <a href="/new">Új adat felvétele</a>
+ 
 </body>
+ 
 </html>

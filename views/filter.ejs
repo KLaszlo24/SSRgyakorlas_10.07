@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="hu">
+ 
+<head>
+    <meta charset="UTF-8">
+    <title>Szűrés</title>
+</head>
+ 
+<body>
+ 
+    <h1>Wikipedia szócikkek szűrése</h1>
+ 
+ 
+    <form action="/filter" method="get">
+ 
+        <label for="minViews">
+            Minimum megtekintések:
+        </label>
+        <input
+            type="number"
+            id="minViews"
+            name="minViews"
+            value="<%= minViews %>"
+        >
+        <button type="submit">Szűrés</button>
+    </form>
+    <br>
+    <table>
+        <thead>
+            <tr>
+                <th>Szócikk címe</th>
+                <th>Látogatások száma</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% for (const article of ArticleView) { %>
+                <tr>
+                    <td>
+                        <a href="<%= article.url %>" target="_blank">
+                            <%= article.title %>
+                        </a>
+                    </td>
+                    <td>
+                        <%= article.views %>
+                    </td>
+                </tr>
+            <% } %>
+        </tbody>
+    </table>
+    <br>
+    <a href="/">Vissza a főoldalra</a>
+ 
+</body>
+ 
+</html>
